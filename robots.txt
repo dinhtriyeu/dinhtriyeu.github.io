@@ -1,0 +1,2 @@
+User-Agent: *
+Sitemap: https://dinhtriyeu.github.io/sitemap.xml
