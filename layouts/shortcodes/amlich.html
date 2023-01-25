@@ -1,0 +1,23 @@
+<script type="text/javascript" language="JavaScript" src="/scripts/amlich-ntt.js">
+</script>
+<script language="JavaScript">
+(() => {
+    let today = new Date();
+
+	let lunarLehoi = {day: 7, month: 2, year: today.getFullYear(), yearCanChi: getYearCanChi(today.getFullYear())};
+
+    let solarLehoi = (() => {
+        let sd = getSolarDate(lunarLehoi.day, lunarLehoi.month, lunarLehoi.year);
+        return {day: sd[0], month: sd[1], year: sd[2]};
+    })();
+
+    let day = (() => {
+        const weekday = ["Chủ nhật","Thứ hai","Thứ ba","Thứ tư","Thứ năm","Thứ sáu","Thứ bảy"];
+        return weekday[(new Date(solarLehoi.year, solarLehoi.month, solarLehoi.day)).getDay()];
+    })()
+
+    let output = `<div id="lichLehoi">~ Âm lịch: ${lunarLehoi.day}/${lunarLehoi.month}/${lunarLehoi.year} (${lunarLehoi.yearCanChi}) là ${day} ${solarLehoi.day}/${solarLehoi.month}/${solarLehoi.year} (dương lịch) ~</div>`;
+
+    document.writeln(output);
+})();
+</script>
