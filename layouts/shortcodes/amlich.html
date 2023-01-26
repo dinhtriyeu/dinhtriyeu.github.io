@@ -16,7 +16,7 @@
         return weekday[(new Date(solarLehoi.year, solarLehoi.month, solarLehoi.day)).getDay()];
     })()
 
-    let output = `<div id="lichLehoi">~ Âm lịch: ${lunarLehoi.day}/${lunarLehoi.month}/${lunarLehoi.year} (${lunarLehoi.yearCanChi}) là ${day} ${solarLehoi.day}/${solarLehoi.month}/${solarLehoi.year} (dương lịch) ~</div>`;
+    let output = `<blockquote id="lichLehoi">Âm lịch ${lunarLehoi.day}/${lunarLehoi.month}/${lunarLehoi.year} (${lunarLehoi.yearCanChi}) tức là ${day} ${solarLehoi.day}/${solarLehoi.month}/${solarLehoi.year} (dương lịch)</blockquote>`;
 
     document.writeln(output);
 })();
