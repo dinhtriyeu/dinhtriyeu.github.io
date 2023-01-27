@@ -4,7 +4,7 @@
 (() => {
     let today = new Date();
 
-	let lunarLehoi = {day: 7, month: 2, year: today.getFullYear(), yearCanChi: getYearCanChi(today.getFullYear())};
+    let lunarLehoi = {day: 7, month: 2, year: today.getFullYear(), yearCanChi: getYearCanChi(today.getFullYear())};
 
     let solarLehoi = (() => {
         let sd = getSolarDate(lunarLehoi.day, lunarLehoi.month, lunarLehoi.year);
@@ -16,7 +16,7 @@
         return weekday[(new Date(solarLehoi.year, solarLehoi.month, solarLehoi.day)).getDay()];
     })()
 
-    let output = `<blockquote id="lichLehoi">Âm lịch ${lunarLehoi.day}/${lunarLehoi.month}/${lunarLehoi.year} (${lunarLehoi.yearCanChi}) tức là ${day} ${solarLehoi.day}/${solarLehoi.month}/${solarLehoi.year} (dương lịch)</blockquote>`;
+    let output = `<blockquote id="lichLehoi">Âm lịch ${lunarLehoi.day}/${lunarLehoi.month}/${lunarLehoi.year} (${lunarLehoi.yearCanChi}) là ${day} ${solarLehoi.day}/${solarLehoi.month}/${solarLehoi.year} (dương lịch)</blockquote>`;
 
     document.writeln(output);
 })();
