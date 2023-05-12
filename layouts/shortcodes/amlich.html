@@ -1,23 +1,53 @@
-<script type="text/javascript" language="JavaScript" src="/scripts/amlich-ntt.js">
-</script>
+<script type="text/javascript" language="JavaScript" src="/scripts/amlich-ntt.js"></script>
+
+<blockquote id="lichLehoi">Âm lịch...</blockquote>
+<div id="yearSelector">
+<button id="previousYear">« Năm trước</button>
+<button id="currentYear">Năm nay</button>
+<button id="nextYear">Năm sau »</button>
+</div>
+
 <script language="JavaScript">
-(() => {
-    let today = new Date();
+    m_offset = 0;
 
-    let lunarLehoi = {day: 7, month: 2, year: today.getFullYear(), yearCanChi: getYearCanChi(today.getFullYear())};
+    function getYear(date = new Date()) {
+        let lunarLehoi = {day: 7, month: 2, year: date.getFullYear(), yearCanChi: getYearCanChi(date.getFullYear())};
 
-    let solarLehoi = (() => {
-        let sd = getSolarDate(lunarLehoi.day, lunarLehoi.month, lunarLehoi.year);
-        return {day: sd[0], month: sd[1], year: sd[2]};
+        let solarLehoi = (() => {
+            let sd = getSolarDate(lunarLehoi.day, lunarLehoi.month, lunarLehoi.year);
+            return {day: sd[0], month: sd[1], year: sd[2]};
+        })();
+
+        let day = (() => {
+            const weekday = ["Chủ nhật","Thứ hai","Thứ ba","Thứ tư","Thứ năm","Thứ sáu","Thứ bảy"];
+            return weekday[(new Date(solarLehoi.year, solarLehoi.month, solarLehoi.day)).getDay()];
+        })();
+
+        return `Âm lịch ${lunarLehoi.day}/${lunarLehoi.month}/${lunarLehoi.year} (${lunarLehoi.yearCanChi}) là ${day} ${solarLehoi.day}/${solarLehoi.month}/${solarLehoi.year} (dương lịch)`;
+    }
+
+    function addYears(date, years) {
+        date.setFullYear(date.getFullYear() + years);
+        return date;
+    }
+
+    (function() {
+        let elm = document.querySelector("#lichLehoi");
+        elm.innerHTML = getYear();
+
+        let offset = 0;
+
+        document.querySelector("#previousYear").onclick = function() {
+            --offset;
+            elm.innerHTML = getYear(addYears(new Date(), offset));
+        }
+        document.querySelector("#currentYear").onclick = function() {
+            offset = 0;
+            elm.innerHTML = getYear(addYears(new Date(), offset));
+        }
+        document.querySelector("#nextYear").onclick = function() {
+            ++offset;
+            elm.innerHTML = getYear(addYears(new Date(), offset));
+        }
     })();
-
-    let day = (() => {
-        const weekday = ["Chủ nhật","Thứ hai","Thứ ba","Thứ tư","Thứ năm","Thứ sáu","Thứ bảy"];
-        return weekday[(new Date(solarLehoi.year, solarLehoi.month, solarLehoi.day)).getDay()];
-    })()
-
-    let output = `<blockquote id="lichLehoi">Âm lịch ${lunarLehoi.day}/${lunarLehoi.month}/${lunarLehoi.year} (${lunarLehoi.yearCanChi}) là ${day} ${solarLehoi.day}/${solarLehoi.month}/${solarLehoi.year} (dương lịch)</blockquote>`;
-
-    document.writeln(output);
-})();
 </script>
